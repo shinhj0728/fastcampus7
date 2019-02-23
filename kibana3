@@ -1,0 +1,77 @@
+[Timelion]
+
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=count)
+
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=count),
+.es(index=kibana_sample_data_flights, timefield=timestamp, metric=count)
+
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=count).add(.es(index=kibana_sample_data_flights, timefield=timestamp, metric=count))
+
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=sum:products.base_price).label(매출액총합)
+
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=sum:products.base_price).label(매출액총합),
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=sum:products.base_price, offset=-1d).label(전일매출액총합)
+
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=sum:products.base_price).label(매출액총합),
+.es(index=kibana_sample_data_ecommerce, timefield=order_date, metric=sum:products.base_price).label(매출급감).if(gt, 11000, null)
+
+
+
+
+[Management]
+
+log_2018.12.01
+log_2018.12.*
+
+day_of_week_order
+doc['order_date'].date.dayOfWeek
+
+fullname
+doc['customer_first_name.keyword'].value + ' ' + doc['customer_last_name.keyword'].value
+
+total_price
+doc['taxful_total_price'].value * doc['total_quantity'].value
+
+ordertime
+doc['order_date'].date.hourOfWeek
+
+ordertime_kor
+Instant.ofEpochMilli(doc['order_date'].date.millis).atZone(ZoneId.of("Asia/Seoul")).hour
+
+day_of_week_order_kor
+Instant.ofEpochMilli(doc['order_date'].date.millis).atZone(ZoneId.of("Asia/Seoul")).dayOfWeek
+
+가격대
+if (doc['taxful_total_price'].value < 100) 
+{ 
+  return "저가" 
+}
+else if (doc['taxful_total_price'].value < 200) 
+{ 
+  return "중가" 
+}
+else 
+{ 
+  return "고가" 
+}
+
+
+
+[DevTools]
+유용한 API
+
+GET _cat/indices  
+  : 모든 index 확인
+
+GET index_name/type_name/_search
+  : 선택된 index, type에 있는 모든 document 확인
+
+PUT index_name/type_name/1
+{
+  "name" : "shj",
+  "email" : "shinhj0728@gmail.com"
+}
+  : 특정 id에 document 추가(1)
+
+GET index_name/type_name/1
+  : document id로 document 확인
