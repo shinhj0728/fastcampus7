@@ -1,0 +1,880 @@
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch"
+}
+
+POST shj_twitter/tweet/
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch"
+}
+
+GET shj_twitter/tweet/1
+GET shj_twitter/tweet/2
+
+DELETE shj_twitter/tweet/1
+DELETE shj_twitter
+
+#update api exam1
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch"
+}
+
+GET shj_twitter/tweet/1
+
+PUT shj_twitter/tweet/1
+{
+    "retweet" : 12
+}
+
+GET shj_twitter/tweet/1
+
+#update api exam8
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"]
+}
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "doc" : {
+        "category" : "elastic"
+    }
+}
+
+GET shj_twitter/tweet/1
+
+#update api exam2
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch"
+}
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": "ctx._source.retweet = 12"
+    }
+}
+
+GET shj_twitter/tweet/1
+
+#update api exam3
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": "ctx._source.retweet += params.count",
+        "lang": "painless",
+        "params" : {
+            "count" : 4
+        }
+    }
+}
+
+GET shj_twitter/tweet/1
+
+
+#update api exam4
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"]
+}
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": "ctx._source.tags.add(params.tag)",
+        "lang": "painless",
+        "params" : {
+            "tag" : "blue"
+        }
+    }
+}
+
+GET shj_twitter/tweet/1
+
+
+#update api exam6
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"]
+}
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : "ctx._source.remove('tags')"
+}
+
+GET shj_twitter/tweet/1
+
+
+#update api exam7
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"]
+}
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": "if (ctx._source.tags.contains(params.tag)) { ctx.op = 'delete' } else { ctx.op = 'none' }",
+        "lang": "painless",
+        "params" : {
+            "tag" : "green"
+        }
+    }
+}
+
+GET shj_twitter/tweet/1
+
+
+#update api exam7
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"]
+}
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": """
+                if (ctx._source.tags.contains(params.tag)) {
+                    ctx.op = 'delete’ 
+                } else { 
+                    ctx.op = 'none’
+                }
+                       """,
+        "lang": "painless",
+        "params" : {
+            "tag" : "green"
+        }
+    }
+}
+
+
+#update api exam7
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": """
+                if (ctx._source.tags.contains(params.tag)) {
+                    ctx.op = 'delete’ 
+                } else { 
+                    ctx.op = 'none’
+                }
+                       """,
+        "lang": "painless",
+        "params" : {
+            "tag" : "red"
+        }
+    }
+}
+
+GET shj_twitter/tweet/1
+
+
+#update api exam9
+DELETE shj_twitter/tweet/1
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": "ctx._source.counter += params.count",
+        "lang": "painless",
+        "params" : {
+            "count" : 4
+        }
+    },
+    "upsert" : {
+        "counter" : 1
+    }
+}
+
+GET shj_twitter/tweet/1
+
+POST shj_twitter/tweet/1/_update
+{
+    "script" : {
+        "source": "ctx._source.counter += params.count",
+        "lang": "painless",
+        "params" : {
+            "count" : 4
+        }
+    },
+    "upsert" : {
+        "counter" : 1
+    }
+}
+
+GET shj_twitter/tweet/1
+
+
+#termvector
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"]
+}
+
+GET shj_twitter/tweet/1/_termvectors?fields=message
+
+
+#mapping
+DELETE shj_twitter
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"],
+    "retweet" : 12
+}
+
+GET shj_twitter/_mapping
+
+
+#mapping exam1
+DELETE shj_twitter
+PUT shj_twitter
+{
+  "mappings": {
+    "tweet" : {
+      "properties": {
+        "user" : {
+          "type": "keyword"
+        },
+        "post_date" : {
+          "type": "date"
+        },
+        "message" : {
+          "type": "text"
+        },
+        "tags" : {
+          "type": "keyword"
+        },
+        "retweet" : {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
+
+PUT shj_twitter/tweet/1
+{
+    "user" : "kimchy",
+    "post_date" : "2009-11-15T14:12:12",
+    "message" : "trying out Elasticsearch",
+    "tags" : ["red"],
+    "retweet" : 12
+}
+
+GET shj_twitter/_mapping
+
+#mapping exam2
+PUT shj_twitter
+PUT shj_twitter/_mapping/tweet 
+{
+  "properties": {
+    "email": {
+      "type": "keyword"
+    }
+  }
+}
+
+#mapping exam3
+PUT shj_dynamic_mapping/doc/1
+{
+  "text" : "this is a text field",
+  "keyword" : "keyword",
+  "int" : 10,
+  "float" : 10.25
+}
+
+GET shj_dynamic_mapping/doc/1
+GET shj_dynamic_mapping/_mapping
+
+
+#search api : search all
+GET ecommerce/_doc/_search
+GET ecommerce/_search
+GET ecommerce/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+#search api : search all from all index 
+GET /_search
+
+#search api : search all from ecommerce, flights index 
+GET ecommerce,flights /_search
+
+#search api : search all from index name starts with ec
+GET ec*/_search
+
+#search exam1
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+
+#search exam2
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 20
+}
+
+#search exam3
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 20,
+  "from": 0
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 20,
+  "from": 1
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 20,
+  "from": 2
+}
+
+#search exam4
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "sort": [
+    {
+      "order_date": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+#search exam5
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "_source": ["customer_full_name",
+    "category"]
+}
+
+#search exam6
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_all": {}
+  },
+ "script_fields": {
+    "shj_field": {
+      "script": {
+        "lang": "painless",
+        "source": "doc['customer_full_name.keyword'].value +' : ' + doc['customer_id'].value"
+      }
+    }
+  }
+}
+
+#Query DSL - term
+GET ecommerce/_doc/_search
+{
+  "query": { 
+    "term": {
+      "day_of_week": {
+        "value": "Sunday"
+      }
+    }
+  }
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": { 
+    "term": {
+      "customer_gender": {
+        "value": "FEMALE"
+      }
+    }
+  }
+}
+
+#Query DSL - terms
+GET ecommerce/_doc/_search
+{
+  "query": { 
+    "terms": {
+      "day_of_week": ["Sunday", "Monday"]
+    }
+  }
+}
+
+#Query DSL - range query
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "range": {
+      "day_of_week_i": {
+        "gte": "2",
+        "lt": "4"
+      }
+    }
+  }
+}
+
+
+#Query DSL - exists query
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "exists": {
+      "field": "category"
+    }
+  }
+}
+
+
+#Query DSL - pattern
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "prefix": {
+      "geoip.city_name": "c"
+    }
+  }
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "wildcard": {
+      "geoip.city_name": "c*"
+    }
+  }
+}
+
+
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "fuzzy": {
+      "geoip.city_name.keyword": {
+        "value": "Caira",
+        "fuzziness": 1
+      }
+    }
+  }
+}
+
+GET ecommerce/_search
+{
+  "query": {
+    "ids": {
+      "type": "_doc",
+      "values": [
+        "TTSWxmcB_tq4r_kT7SG7",
+        "fDSWxmcB_tq4r_kT7SG7"
+      ]
+    }
+  }
+}
+
+
+#Query DSL - match
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "term": {
+      "customer_full_name": "Abd Hernandez"
+    }
+  }
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match": {
+      "customer_full_name": "Abd Hernandez"
+    }
+  }
+}
+
+#Query DSL - match with operator
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match": {
+      "customer_full_name": {
+        "query": "Abd Hernandez"
+      }
+    }
+  }
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match": {
+      "customer_full_name": {
+        "query": "Abd Hernandez",
+        "operator": "and"
+      }
+    }
+  }
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match": {
+      "customer_full_name": {
+        "query": "Abd Hernandez",
+        "operator": "or"
+      }
+    }
+  }
+}
+
+#Query DSL - match_phrase
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_phrase": {
+      "customer_full_name": "Abd Hernandez"
+    }
+  }
+}
+
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "match_phrase": {
+      "customer_full_name": "Hernandez Abd"
+    }
+  }
+}
+
+
+#Query DSL – bool exam1
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "term": {
+          "geoip.country_iso_code.keyword": "AE"
+        }
+      }
+    }
+  }
+}
+
+#Query DSL – bool exam2
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "term": {
+          "geoip.country_iso_code.keyword": "AE"
+        }
+      },
+      "must" : {
+        "term" : { "day_of_week" : "Monday" }
+      }
+    }
+  }
+}
+
+#Query DSL – bool exam3
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "term": {
+          "geoip.country_iso_code.keyword": "AE"
+        }
+      },
+      "must" : {
+        "term" : { "day_of_week" : "Monday" }
+      },
+      "must_not" : {
+        "range" : {
+          "taxful_total_price" : { "gte" : 100, "lte" : 150 }
+        }
+      }
+    }
+  }
+}
+
+#Query DSL – bool exam4
+GET ecommerce/_doc/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "term": {
+          "geoip.country_iso_code.keyword": "AE"
+        }
+      },
+      "must" : {
+        "term" : { "day_of_week" : "Monday" }
+      },
+      "must_not" : {
+        "range" : {
+          "taxful_total_price" : { "gte" : 100, "lte" : 150 }
+        }
+      } ,
+      "should" : [
+        { "term" : { "customer_gender" : "MALE" } },
+        { "term" : { "manufacturer.keyword" : "Elitelligence" } }
+      ],
+      "minimum_should_match" : 2
+    }
+  }
+}
+
+#Aggregation - matrix agg.
+GET ecommerce/_doc/_search
+{
+  "aggs": {
+    "statistics": {
+      "matrix_stats": {
+        "fields": [
+          "taxful_total_price",
+          "total_quantity"
+        ]
+      }
+    }
+  },
+  "size": 0
+}
+
+#aggregation – avg metric
+POST ecommerce/_doc/_search
+{
+  "aggs": {
+    "avg_taxful_total_price": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
+    }
+  }
+}
+
+POST ecommerce/_doc/_search
+{
+  "aggs": {
+    "avg_taxful_total_price": {
+      "avg": {
+        "field": "taxful_total_price"
+      }
+    }
+  },
+  "size": 0
+}
+
+#aggregation – stats metric
+POST ecommerce/_search
+{
+  "aggs": {
+    "stats_taxful_total_price": {
+      "stats": {
+        "field": "taxful_total_price"
+      }
+    }
+  }, 
+  "size": 0
+}
+
+GET ecommerce/_search
+{
+  "aggs": {
+    "stats_taxful_total_price": {
+      "extended_stats": {
+        "field": "taxful_total_price"
+      }
+    }
+  }, 
+  "size": 0
+}
+
+#aggregation – percentiles, percentile_ranks metric
+POST ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_percentiles": {
+      "percentiles": {
+        "field": "taxful_total_price",
+        "percents": [1,50,99]
+      }
+    }
+  }
+}
+POST ecommerce/_search
+{
+  "size": 0,
+  "aggs": {
+    "price_percentile_ranks": {
+      "percentile_ranks": {
+        "field": "taxful_total_price",
+        "values": [70, 80, 90]
+      }
+    }
+  }
+}
+
+# aggregation – geo metric
+PUT museums
+{
+    "mappings": {
+        "doc": {
+            "properties": {
+                "location": {
+                    "type": "geo_point"
+                }
+            }
+        }
+    }
+}
+
+POST /museums/doc/_bulk?refresh
+{"index":{"_id":1}}
+{"location": "52.374081,4.912350", "name": "NEMO Science Museum"}
+{"index":{"_id":2}}
+{"location": "52.369219,4.901618", "name": "Museum Het Rembrandthuis"}
+{"index":{"_id":3}}
+{"location": "52.371667,4.914722", "name": "Nederlands Scheepvaartmuseum"}
+{"index":{"_id":4}}
+{"location": "51.222900,4.405200", "name": "Letterenhuis"}
+{"index":{"_id":5}}
+{"location": "48.861111,2.336389", "name": "Musée du Louvre"}
+{"index":{"_id":6}}
+{"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
+
+
+# aggregation – geo metric exam1
+POST /museums/_search?size=0
+{
+  "aggs": {
+    "viewport": {
+      "geo_bounds": {
+        "field": "location",
+        "wrap_longitude": true
+      }
+    }
+  }
+}
+
+POST /museums/_search?size=0
+{
+  "query": {
+    "match": {
+      "name": "musée"
+    }
+  },
+  "aggs": {
+    "viewport": {
+      "geo_bounds": {
+        "field": "location",
+        "wrap_longitude": true
+      }
+    }
+  }
+}
+
+# aggregation – geo metric exam2
+POST /museums/_search?size=0
+{
+    "aggs" : {
+        "centroid" : {
+            "geo_centroid" : {
+                "field" : "location" 
+            }
+        }
+    }
+}
+
+
+# aggregation – date_histogram  Bucket
+POST ecommerce/_search
+{
+  "aggs": {
+    "sales_over_time": {
+      "date_histogram": {
+        "field": "order_date",
+        "interval": "week"
+      }
+    }
+  }
+}
+
+
