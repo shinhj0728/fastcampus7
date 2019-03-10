@@ -1,0 +1,195 @@
+EC2 접속 - mac(window는 putty)
+
+$ chmod 400 FC-elastic6.pem
+ --> (1회만 해주면 됨)
+$ ssh -i FC-elastic6.pem ec2-user@ec2-52-79-142-75.ap-northeast-2.compute.amazonaws.com
+
+ELK 설치
+
+1. JAVA 설치
+$ java -version
+$ sudo yum remove java-1.7.0-openjdk.x86_64 -y
+$ sudo yum install java-1.8.0-openjdk-devel.x86_64 -y
+$ java -version
+
+2. limits.conf 설정 변경 
+$ sudo vi /etc/security/limits.conf
+
+i 키보드 입력(insert mode)
+
+*       hard    nofile  65536
+*       soft    nofile  65536
+*       soft    nproc   4096
+*       hard    nproc   4096
+
+esc 키보드 입력
+:wq! 키보드 입력 후 enter
+
+3. sysctl.conf 설정 변경 
+$ sudo vi /etc/sysctl.conf
+
+i 키보드 입력
+
+vm.max_map_count=262144
+
+esc 키보드 입력
+:wq! 키보드 입력 후 enter
+
+4. Reboot EC2 instance 
+$ sudo reboot
+
+
+EC2 접속 - mac(window는 putty)
+
+$ ssh -i FC-elastic6.pem ec2-user@ec2-52-79-142-75.ap-northeast-2.compute.amazonaws.com
+
+ELK Download
+$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz
+$ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz
+$ wget https://artifacts.elastic.co/downloads/logstash/logstash-6.5.4.tar.gz
+$ sudo yum install git -y
+$ git clone https://github.com/shinhj0728/data.git
+
+ELK 압축해제
+$ tar -zxvf elasticsearch-6.5.4.tar.gz
+$ tar -zxvf kibana-6.5.4-linux-x86_64.tar.gz
+$ tar -zxvf logstash-6.5.4.tar.gz
+
+EK 설정변경
+$ cd ~/elasticsearch-6.5.4
+$ vi config/elasticsearch.yml 
+
+i 키보드 입력
+
+#network.host: 192.168.0.1 부분을 수정
+
+network.host: ec2-51-78-134-20.ap-northeast-2.compute.amazonaws.com
+
+esc 키보드 입력
+:wq! 키보드 입력 후 enter
+
+$ vi config/jvm.options
+
+i 키보드 입력
+
+-Xms1g
+-Xmx1g  부분을 수정
+
+-Xms128m
+-Xmx128m
+
+esc 키보드 입력
+:wq! 키보드 입력 후 enter
+
+$ cd ~/kibana-6.5.4-linux-x86_64
+$ vi config/kibana.yml 
+
+i 키보드 입력
+
+#server.host: "localhost"
+#elasticsearch.url: "http://localhost:9200" 부분을 수정
+
+server.host: "ec2-51-78-134-20.ap-northeast-2.compute.amazonaws.com"
+elasticsearch.url: "http://ec2-51-78-134-20.ap-northeast-2.compute.amazonaws.com:9200" 
+
+esc 키보드 입력
+:wq! 키보드 입력 후 enter
+
+
+$ cd ~/logstash-6.5.4
+$ vi config/jvm.options
+
+i 키보드 입력
+
+-Xms1g
+-Xmx1g  부분을 수정
+
+-Xms128m
+-Xmx128m
+
+esc 키보드 입력
+:wq! 키보드 입력 후 enter
+
+EK 실행
+$ cd ~/elasticsearch-6.5.4
+$ bin/elasticsearch 
+백그라운드실행
+$ bin/elasticsearch -d
+
+$ cd ~/kibana-6.5.4-linux-x86_64
+$ bin/kibana
+백그라운드실행
+$ nohup bin/kibana &
+
+Background로 실행 된 Elasticsearch process 정지하기
+$ ps aux | grep elasticsearch
+$ sudo kill -9 10169
+
+Background로 실행 된 Kibana process 정지하기
+$ sudo ss -tulpn | grep :5601
+$ sudo kill -9 27961
+
+
+
+Logstash - ex1
+$ cd ~/logstash-6.5.4
+$ vi ~/data/ex1.conf 
+$ bin/logstash -f ~/data/ex1.conf
+
+Logstash - ex2
+$ vi /home/ec2-user/data/titanic.csv
+$ vi ~/data/ex2.conf
+$ bin/logstash -f ~/data/ex2.conf 
+
+Logstash - ex3
+$ vi ~/data/ex3.conf
+$ bin/logstash -f ~/data/ex3.conf 
+
+
+Logstash - ex4
+$ vi ~/data/ex4.conf
+$ bin/logstash -f ~/data/ex4.conf 
+
+Logstash - ex5
+$ vi ~/data/ex5.conf
+$ bin/logstash -f ~/data/ex5.conf 
+
+Logstash - ex6
+$ vi ~/data/ex6.conf
+$ bin/logstash -f ~/data/ex6.conf 
+$ cd /home/ec2-user/data/
+$ ls
+$ vi ex6.csv
+
+
+Logstash - ex7
+$ vi ~/data/ex7.conf
+$ bin/logstash -f ~/data/ex7.conf
+
+
+Logstash - ex8
+$ vi ~/data/ex8.conf
+$ bin/logstash -f ~/data/ex8.conf
+
+Logstash - ex9
+$ vi ~/data/ex9.conf
+$ bin/logstash -f ~/data/ex9.conf
+
+Logstash - ex10
+$ vi ~/data/ex10.conf
+$ bin/logstash -f ~/data/ex10.conf
+
+Logstash - ex11
+$ vi ~/data/ex11.conf
+$ bin/logstash -f ~/data/ex11.conf
+123:456:789
+
+Logstash - ex12
+$ vi ~/data/ex12.conf
+$ bin/logstash -f ~/data/ex12.conf
+123:456:789
+
+Logstash - ex13
+$ vi ~/data/ex13.conf
+$ bin/logstash -f ~/data/ex13.conf
+123:456:789
