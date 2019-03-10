@@ -44,19 +44,19 @@ EC2 접속 - mac(window는 putty)
 $ ssh -i FC-elastic6.pem ec2-user@ec2-52-79-142-75.ap-northeast-2.compute.amazonaws.com
 
 ELK Download
-$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz
-$ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.5.4-linux-x86_64.tar.gz
-$ wget https://artifacts.elastic.co/downloads/logstash/logstash-6.5.4.tar.gz
+$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.1.tar.gz
+$ wget https://artifacts.elastic.co/downloads/kibana/kibana-6.6.1-linux-x86_64.tar.gz
+$ wget https://artifacts.elastic.co/downloads/logstash/logstash-6.6.1.tar.gz
 $ sudo yum install git -y
 $ git clone https://github.com/shinhj0728/data.git
 
 ELK 압축해제
-$ tar -zxvf elasticsearch-6.5.4.tar.gz
-$ tar -zxvf kibana-6.5.4-linux-x86_64.tar.gz
-$ tar -zxvf logstash-6.5.4.tar.gz
+$ tar -zxvf elasticsearch-6.6.1.tar.gz
+$ tar -zxvf kibana-6.6.1-linux-x86_64.tar.gz
+$ tar -zxvf logstash-6.6.1.tar.gz
 
 EK 설정변경
-$ cd ~/elasticsearch-6.5.4
+$ cd ~/elasticsearch-6.6.1
 $ vi config/elasticsearch.yml 
 
 i 키보드 입력
@@ -81,7 +81,7 @@ i 키보드 입력
 esc 키보드 입력
 :wq! 키보드 입력 후 enter
 
-$ cd ~/kibana-6.5.4-linux-x86_64
+$ cd ~/kibana-6.6.1-linux-x86_64
 $ vi config/kibana.yml 
 
 i 키보드 입력
@@ -96,7 +96,7 @@ esc 키보드 입력
 :wq! 키보드 입력 후 enter
 
 
-$ cd ~/logstash-6.5.4
+$ cd ~/logstash-6.6.1
 $ vi config/jvm.options
 
 i 키보드 입력
@@ -111,12 +111,12 @@ esc 키보드 입력
 :wq! 키보드 입력 후 enter
 
 EK 실행
-$ cd ~/elasticsearch-6.5.4
+$ cd ~/elasticsearch-6.6.1
 $ bin/elasticsearch 
 백그라운드실행
 $ bin/elasticsearch -d
 
-$ cd ~/kibana-6.5.4-linux-x86_64
+$ cd ~/kibana-6.6.1-linux-x86_64
 $ bin/kibana
 백그라운드실행
 $ nohup bin/kibana &
@@ -132,7 +132,7 @@ $ sudo kill -9 27961
 
 
 Logstash - ex1
-$ cd ~/logstash-6.5.4
+$ cd ~/logstash-6.6.1
 $ vi ~/data/ex1.conf 
 $ bin/logstash -f ~/data/ex1.conf
 
