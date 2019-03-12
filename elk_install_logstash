@@ -56,7 +56,7 @@ $ tar -zxvf kibana-6.6.1-linux-x86_64.tar.gz
 $ tar -zxvf logstash-6.6.1.tar.gz
 
 EK 설정변경
-$ cd ~/elasticsearch-6.6.1
+$ cd /home/ec2-user/elasticsearch-6.6.1
 $ vi config/elasticsearch.yml 
 
 i 키보드 입력
@@ -81,7 +81,7 @@ i 키보드 입력
 esc 키보드 입력
 :wq! 키보드 입력 후 enter
 
-$ cd ~/kibana-6.6.1-linux-x86_64
+$ cd /home/ec2-user/kibana-6.6.1-linux-x86_64
 $ vi config/kibana.yml 
 
 i 키보드 입력
@@ -96,7 +96,7 @@ esc 키보드 입력
 :wq! 키보드 입력 후 enter
 
 
-$ cd ~/logstash-6.6.1
+$ cd /home/ec2-user/logstash-6.6.1
 $ vi config/jvm.options
 
 i 키보드 입력
@@ -111,12 +111,12 @@ esc 키보드 입력
 :wq! 키보드 입력 후 enter
 
 EK 실행
-$ cd ~/elasticsearch-6.6.1
+$ cd /home/ec2-user/elasticsearch-6.6.1
 $ bin/elasticsearch 
 백그라운드실행
 $ bin/elasticsearch -d
 
-$ cd ~/kibana-6.6.1-linux-x86_64
+$ cd /home/ec2-user/kibana-6.6.1-linux-x86_64
 $ bin/kibana
 백그라운드실행
 $ nohup bin/kibana &
@@ -132,30 +132,35 @@ $ sudo kill -9 27961
 
 
 Logstash - ex1
-$ cd ~/logstash-6.6.1
-$ vi ~/data/ex1.conf 
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex1.conf 
 $ bin/logstash -f ~/data/ex1.conf
 
 Logstash - ex2
+$ cd /home/ec2-user/logstash-6.6.1
 $ vi /home/ec2-user/data/titanic.csv
-$ vi ~/data/ex2.conf
+$ vi /home/ec2-user/data/ex2.conf
 $ bin/logstash -f ~/data/ex2.conf 
 
 Logstash - ex3
-$ vi ~/data/ex3.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex3.conf
 $ bin/logstash -f ~/data/ex3.conf 
 
 
 Logstash - ex4
-$ vi ~/data/ex4.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex4.conf
 $ bin/logstash -f ~/data/ex4.conf 
 
 Logstash - ex5
-$ vi ~/data/ex5.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex5.conf
 $ bin/logstash -f ~/data/ex5.conf 
 
 Logstash - ex6
-$ vi ~/data/ex6.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex6.conf
 $ bin/logstash -f ~/data/ex6.conf 
 $ cd /home/ec2-user/data/
 $ ls
@@ -163,33 +168,40 @@ $ vi ex6.csv
 
 
 Logstash - ex7
-$ vi ~/data/ex7.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex7.conf
 $ bin/logstash -f ~/data/ex7.conf
 
 
 Logstash - ex8
-$ vi ~/data/ex8.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex8.conf
 $ bin/logstash -f ~/data/ex8.conf
 
 Logstash - ex9
-$ vi ~/data/ex9.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex9.conf
 $ bin/logstash -f ~/data/ex9.conf
 
 Logstash - ex10
-$ vi ~/data/ex10.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex10.conf
 $ bin/logstash -f ~/data/ex10.conf
 
 Logstash - ex11
-$ vi ~/data/ex11.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex11.conf
 $ bin/logstash -f ~/data/ex11.conf
 123:456:789
 
 Logstash - ex12
-$ vi ~/data/ex12.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex12.conf
 $ bin/logstash -f ~/data/ex12.conf
 123:456:789
 
 Logstash - ex13
-$ vi ~/data/ex13.conf
+$ cd /home/ec2-user/logstash-6.6.1
+$ vi /home/ec2-user/data/ex13.conf
 $ bin/logstash -f ~/data/ex13.conf
 123:456:789
