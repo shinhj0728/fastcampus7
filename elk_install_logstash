@@ -87,10 +87,10 @@ $ vi config/kibana.yml
 i 키보드 입력
 
 #server.host: "localhost"
-#elasticsearch.url: "http://localhost:9200" 부분을 수정
+#elasticsearch.hosts: ["http://localhost:9200"] 부분을 수정
 
 server.host: "ec2-51-78-134-20.ap-northeast-2.compute.amazonaws.com"
-elasticsearch.url: "http://ec2-51-78-134-20.ap-northeast-2.compute.amazonaws.com:9200" 
+elasticsearch.hosts: ["http://ec2-51-78-134-20.ap-northeast-2.compute.amazonaws.com:9200"]
 
 esc 키보드 입력
 :wq! 키보드 입력 후 enter
