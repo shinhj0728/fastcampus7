@@ -63,7 +63,7 @@ $ vi file.conf
 
 input {
   file {
-    path => "/home/ec2-user/data/5000 Sales Records.csv"
+    path => "/home/ec2-user/data/5000_Sales_Records.csv"
     start_position => "beginning"
     #sincedb_path => "/dev/null" #only for develop
   }
