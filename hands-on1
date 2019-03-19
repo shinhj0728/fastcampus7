@@ -93,4 +93,8 @@ output {
   #stdout { }  #only for develop
 }
 
-$ bin/logstash -f file.conf 
+$ bin/logstash -f file.conf
+
+
+[scripted field]
+doc['Ship Date'].date.dayOfYear - doc['Order Date'].date.dayOfYear
