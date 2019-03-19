@@ -86,7 +86,7 @@ filter {
 
 output {
   elasticsearch {
-    hosts => ["ec2-54-180-12-248.ap-northeast-2.compute.amazonaws.com:9200"]
+    hosts => ["ec2-13-209-172-77.ap-northeast-2.compute.amazonaws.com:9200"]
     index => "myfile"
     document_type => "myfile"
   }
